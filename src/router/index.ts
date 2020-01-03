@@ -1,23 +1,62 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "home",
-    component: Home
+    path: "*",
+    name: "login",
+    meta: {
+      title: "Login-登录",
+      hideInMenu: true
+    },
+    component: () => import("@/views/login/index.vue")
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    path: "/login",
+    name: "login",
+    meta: {
+      title: "Login-登录",
+      hideInMenu: true
+    },
+    component: () => import("@/views/login/index.vue")
+  },
+  {
+    path: "/home",
+    name: "home",
+    meta: {
+      title: "Home-首页",
+      hideInMenu: true
+    },
+    component: () => import("@/views/home/index.vue"),
+    children: [
+      {
+        path: "chat",
+        name: "Chat",
+        component: () => import("@/views/im/chat/index.vue")
+      },
+      {
+        path: "duany",
+        name: "Duany",
+        component: () => import("@/views/im/duany/index.vue")
+      },
+      {
+        path: "pre",
+        name: "Pre",
+        component: () => import("@/views/knowledge/data_pre/index.vue")
+      },
+      {
+        path: "role",
+        name: "Role",
+        component: () => import("@/views/knowledge/role/index.vue")
+      },
+      {
+        path: "setting",
+        name: "Setting",
+        component: () => import("@/views/knowledge/setting/index.vue")
+      }
+    ]
   }
 ];
 
